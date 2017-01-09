@@ -1,4 +1,5 @@
 package com.company.Game;
+import java.awt.*;
 
 /**
  * Created by Pascal on 12.12.2016.
@@ -9,6 +10,7 @@ public class Model {
     public String name;
     public Vector textureSize;
     public String texturePath;
+    public Image texture;
     public int spriteMax;
     public boolean hasPattern;
 //    public CanvasPattern pattern;
