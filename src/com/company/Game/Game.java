@@ -12,7 +12,7 @@ public class Game {
     public Map map;
     public HashMap<String, Model> models;
 
-    Game() {
+    public Game() {
         this.models = new HashMap<String, Model>();
 
         ArrayList<Rectangle> a = new ArrayList<Rectangle>();
@@ -30,6 +30,15 @@ public class Game {
             false
         ));
 
+        this.models.put("player", new Model(
+                new Hitbox(a),
+                "assets/images/dirt.png",
+                "dirt",
+                new Vector(10, 10),
+                1,
+                false
+        ));
+
 
         this.map = new Map(this, 1000, 1000);
 
@@ -42,6 +51,7 @@ public class Game {
 
 
 
+
     private void gameLoop() {
         int delay = 16 / 1000;
 
@@ -51,15 +61,12 @@ public class Game {
             if (entity != null) {
                 Vector acceleration = entity.force.scale(1500);
                 double friction = .91;
-                // let friction: number = .92;
 
                 entity.velocity = entity.velocity.add(acceleration.scale(delay)).scale(friction).round();
 
                 // new position (now check for collision)
                 Vector position = entity.position.add(entity.velocity.scale(delay));
-
                 ArrayList<Body> collision = new ArrayList<Body>();
-
                 for (int o = 0; o < this.map.blocks.size(); o++) {
                     Block block = this.map.blocks.get(o);
                     if (block != null) {

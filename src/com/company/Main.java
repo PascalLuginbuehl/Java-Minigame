@@ -1,10 +1,10 @@
 package com.company;
-//import com.company.Game3.Game3;
+import com.company.Game.*;
 
 public class Main {
 
     public static void main(String[] args) {
-//        Game3 ex = new Game3();
+        new Render(new Game());
 //        new Thread(ex).start();
     }
 }

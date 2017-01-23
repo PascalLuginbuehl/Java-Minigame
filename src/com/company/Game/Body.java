@@ -14,10 +14,15 @@ public class Body {
     }
 
 
-    public boolean checkCollision(Body body, Vector newPositon) {
-        return this.model.checkCollision(body.position, newPositon, body.model);
+    public boolean checkCollision(Body body, Vector newPosition) {
+//        return true;
+        return model.checkCollision(body.position, newPosition, body.model);
     }
 
+//    public boolean checkCollision(Body a, Vector v) {
+//        return true;
+//        return this.model.checkCollision(body.position, newPosition, body.model);
+//    }
 
 
 //    public render(ctx: CanvasRenderingContext2D): void {
