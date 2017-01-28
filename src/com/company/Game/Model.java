@@ -21,6 +21,7 @@ public class Model {
         this.textureSize = textureSize;
         this.hasPattern = hasPattern;
 
+
         this.spriteMax = spriteMax;
         this.texturePath = texturePath;
     }

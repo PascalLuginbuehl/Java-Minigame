@@ -1,6 +1,5 @@
 package com.company.Game;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +12,7 @@ public class Map {
 
     Map(Game game, double sizeX, double sizeY) {
         this.size = new Vector(sizeX, sizeY);
-        ArrayList<Block> block = new ArrayList<Block>();
+        ArrayList<Block> block = new ArrayList<>();
         block.add(new Block(
             new Vector(20, 20),
             game.models.get("dirt"),
@@ -22,10 +21,10 @@ public class Map {
 
         this.blocks = block;
 
-        ArrayList<Entity> entity = new ArrayList<Entity>();
+        ArrayList<Entity> entity = new ArrayList<>();
 
         entity.add(new Entity(
-            new Vector(100, 123),
+            new Vector(100, 100),
             game.models.get("player"),
             new Vector(0, 0),
             new Vector(0, 0)

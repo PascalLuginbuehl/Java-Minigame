@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by Pascal on 12.12.2016.
  */
-public class Game {
+public class Game implements Runnable {
     public Map map;
     public HashMap<String, Model> models;
 
@@ -23,7 +23,7 @@ public class Game {
 
         this.models.put("dirt", new Model(
             new Hitbox(a),
-            "assets/images/dirt.png",
+            "dirt.png",
             "dirt",
             new Vector(10, 10),
             1,
@@ -32,7 +32,7 @@ public class Game {
 
         this.models.put("player", new Model(
                 new Hitbox(a),
-                "assets/images/dirt.png",
+                "dirt.png",
                 "dirt",
                 new Vector(10, 10),
                 1,
@@ -41,11 +41,42 @@ public class Game {
 
 
         this.map = new Map(this, 1000, 1000);
+    }
 
+    long desiredFPS = 60;
+    long desiredDeltaLoop = (1000*1000*1000)/desiredFPS;
 
+    boolean running = true;
 
-        while (true) {
-            this.gameLoop();
+    public void run(){
+
+        long beginLoopTime;
+        long endLoopTime;
+        long currentUpdateTime = System.nanoTime();
+        long lastUpdateTime;
+        long deltaLoop;
+
+        while (running) {
+            beginLoopTime = System.nanoTime();
+
+            gameLoop();
+
+            lastUpdateTime = currentUpdateTime;
+            currentUpdateTime = System.nanoTime();
+//            update((int) ((currentUpdateTime - lastUpdateTime)/(1000*1000)));
+
+            endLoopTime = System.nanoTime();
+            deltaLoop = endLoopTime - beginLoopTime;
+
+            if(deltaLoop > desiredDeltaLoop){
+                //Do nothing. We are already late.
+            } else {
+                try {
+                    Thread.sleep((desiredDeltaLoop - deltaLoop)/(1000*1000));
+                } catch(InterruptedException e) {
+                    //Do nothing
+                }
+            }
         }
     }
 
@@ -53,7 +84,7 @@ public class Game {
 
 
     private void gameLoop() {
-        int delay = 16 / 1000;
+        double delay = 16.0 / 1000.0;
 
 
         for (int i = 0; i < this.map.entitys.size(); i++) {

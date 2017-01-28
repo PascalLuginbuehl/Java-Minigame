@@ -10,7 +10,7 @@ import java.util.HashMap;
 /**
  * Created by Pascal on 12.12.2016.
  */
-public class Render {
+public class Render implements Runnable {
 //    private canvas: HTMLCanvasElement;
 //    private context: CanvasRenderingContext2D;
 //    private mapCanvas: HTMLCanvasElement;
@@ -18,7 +18,7 @@ public class Render {
 
     private Game game;
     JFrame frame;
-    Canvas canvas;
+    public Canvas canvas;
     Canvas mapCanvas;
     BufferStrategy bufferStrategy;
     private Entity cameraEntity;
@@ -70,6 +70,45 @@ public class Render {
         }
     }
 
+
+    long desiredFPS = 60;
+    long desiredDeltaLoop = (1000*1000*1000)/desiredFPS;
+
+    boolean running = true;
+
+    public void run(){
+
+        long beginLoopTime;
+        long endLoopTime;
+        long currentUpdateTime = System.nanoTime();
+        long lastUpdateTime;
+        long deltaLoop;
+
+        while (running) {
+            beginLoopTime = System.nanoTime();
+
+            renderLoop();
+
+            lastUpdateTime = currentUpdateTime;
+            currentUpdateTime = System.nanoTime();
+//            update((int) ((currentUpdateTime - lastUpdateTime)/(1000*1000)));
+
+            endLoopTime = System.nanoTime();
+            deltaLoop = endLoopTime - beginLoopTime;
+
+            if(deltaLoop > desiredDeltaLoop){
+                //Do nothing. We are already late.
+            } else {
+                try {
+                    Thread.sleep((desiredDeltaLoop - deltaLoop)/(1000*1000));
+                } catch(InterruptedException e) {
+                    //Do nothing
+                }
+            }
+        }
+    }
+
+
 //    public paintBlocks(): void {
 //        this.mapContext.rect(0, 0, this.mapCanvas.height, this.mapCanvas.width);
 //        this.mapContext.fillStyle = this.game.map.background;
@@ -86,6 +125,10 @@ public class Render {
     private void renderLoop() {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
+
+        for (int i = 0; i < this.game.map.blocks.size(); i++) {
+            this.game.map.blocks.get(i).render(g);
+        }
 
         for (int i = 0; i < this.game.map.entitys.size(); i++) {
             this.game.map.entitys.get(i).render(g);

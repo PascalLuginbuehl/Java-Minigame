@@ -19,8 +19,4 @@ public class Entity extends Body {
         this.force = force;
         this.lastDirection = 0;
     }
-
-    void render(Graphics2D ctx) {
-        ctx.drawImage(this.model.texture, (int) Math.round(this.position.x), (int) Math.round(this.position.y), null);
-    }
 }
