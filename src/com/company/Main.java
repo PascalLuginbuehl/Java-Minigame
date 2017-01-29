@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
 //        new Render(new Game());
 
-        System.out.print(new File("air.png").exists());
         Game gameEx = new Game();
         new Thread(gameEx).start();
 

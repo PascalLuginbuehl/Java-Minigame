@@ -11,10 +11,6 @@ import java.util.HashMap;
  * Created by Pascal on 12.12.2016.
  */
 public class Render implements Runnable {
-//    private canvas: HTMLCanvasElement;
-//    private context: CanvasRenderingContext2D;
-//    private mapCanvas: HTMLCanvasElement;
-//    private mapContext: CanvasRenderingContext2D;
 
     private Game game;
     JFrame frame;
@@ -109,7 +105,7 @@ public class Render implements Runnable {
     }
 
 
-//    public paintBlocks(): void {
+//    public void paintBlocks() {
 //        this.mapContext.rect(0, 0, this.mapCanvas.height, this.mapCanvas.width);
 //        this.mapContext.fillStyle = this.game.map.background;
 //        this.mapContext.fill();

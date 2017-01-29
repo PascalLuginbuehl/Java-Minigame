@@ -6,14 +6,12 @@ import java.awt.*;
  */
 public class Model {
     public Hitbox hitbox;
-//    public HTMLImageElement texture;
     public String name;
     public Vector textureSize;
     public String texturePath;
     public Image texture;
     public int spriteMax;
     public boolean hasPattern;
-//    public CanvasPattern pattern;
 
     Model(Hitbox hitbox, String texturePath, String name, Vector textureSize, int spriteMax, boolean hasPattern) {
         this.hitbox = hitbox;
@@ -26,7 +24,13 @@ public class Model {
         this.texturePath = texturePath;
     }
 
-
+    /**
+     * Checks collision between two models positions and a model
+     * @param origin vector of this hitbox
+     * @param originHitbox position vector of other model
+     * @param model other model
+     * @return if collision occured
+     */
     public boolean checkCollision(Vector origin, Vector originHitbox, Model model) {
         return this.hitbox.checkCollision(origin, originHitbox, model.hitbox);
     }
