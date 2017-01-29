@@ -15,7 +15,7 @@ class VectorTest extends GroovyTestCase {
         Vector v = new Vector(4.0, 0.0)
         Vector v2 = new Vector(3.0, 0.0)
         Vector result = v2.subtract(v)
-        assertEquals(result.x, 1.0)
+        assertEquals(result.x, -1.0)
     }
 
     void testScale() {

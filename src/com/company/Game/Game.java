@@ -16,16 +16,22 @@ public class Game implements Runnable {
      * Base class for everything, creates map, models and other stuff
      */
     public Game() {
-        this.models = new HashMap<String, Model>();
+        this.models = new HashMap<>();
 
-        ArrayList<Rectangle> a = new ArrayList<Rectangle>();
-        a.add(new Rectangle(
+        ArrayList<Rectangle> dirtHitbox = new ArrayList<>();
+        dirtHitbox.add(new Rectangle(
                 new Vector(0, 0),
                 new Vector(10, 10)
         ));
 
+        ArrayList<Rectangle> playerHitbox = new ArrayList<>();
+        playerHitbox.add(new Rectangle(
+                new Vector(0, 0),
+                new Vector(24, 26)
+        ));
+
         this.models.put("dirt", new Model(
-            new Hitbox(a),
+            new Hitbox(dirtHitbox),
             "dirt.png",
             "dirt",
             new Vector(10, 10),
@@ -34,7 +40,7 @@ public class Game implements Runnable {
         ));
 
         this.models.put("player", new Model(
-                new Hitbox(a),
+                new Hitbox(playerHitbox),
                 "player.png",
                 "player",
                 new Vector(24, 26),
