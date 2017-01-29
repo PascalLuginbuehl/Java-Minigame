@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 /**
@@ -15,12 +16,16 @@ public class Render implements Runnable {
     private Game game;
     JFrame frame;
     public Canvas canvas;
-    Canvas mapCanvas;
     BufferStrategy bufferStrategy;
+    BufferedImage mapBufferedImage;
     private Entity cameraEntity;
     final int HEIGHT = 1000;
     final int WIDTH = 1000;
 
+    /**
+     * Initialization
+     * @param game game as parameter so it has all informations
+     */
     public Render(Game game) {
         this.game = game;
 
@@ -48,15 +53,22 @@ public class Render implements Runnable {
         canvas.requestFocus();
 
 
-        // Preloading images
+//        mapCanvas
+        mapBufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
-        int texturesToLoad =  this.game.models.size() + 1;
-        int loadedTextures = 0;
+        Graphics2D mapGraphics = mapBufferedImage.createGraphics();
+
+        for (int i = 0; i < this.game.map.blocks.size(); i++) {
+            this.game.map.blocks.get(i).render(mapGraphics);
+        }
+
+
 
         // load global background
-        Image background = Toolkit.getDefaultToolkit().getImage("assets/images/grass.png");
+//        Image background = Toolkit.getDefaultToolkit().getImage("assets/images/grass.png");
 
 
+        // Loading images
         for(java.util.Map.Entry<String, Model> entry : this.game.models.entrySet()) {
             String modelName = entry.getKey();
             Model model = entry.getValue();
@@ -72,6 +84,10 @@ public class Render implements Runnable {
 
     boolean running = true;
 
+    /**
+     * implemented from interface ex,
+     * runs this as single thread
+     */
     public void run(){
 
         long beginLoopTime;
@@ -104,17 +120,6 @@ public class Render implements Runnable {
         }
     }
 
-
-//    public void paintBlocks() {
-//        this.mapContext.rect(0, 0, this.mapCanvas.height, this.mapCanvas.width);
-//        this.mapContext.fillStyle = this.game.map.background;
-//        this.mapContext.fill();
-//
-//        for (int i = 0; i < this.game.map.blocks.size(); i++) {
-//            this.game.map.blocks.get(i).render(this.mapContext);
-//        }
-//    }
-
     /**
      * Renderloop, goes throug all blocks and entitys and draws them on canvas
      */
@@ -122,9 +127,11 @@ public class Render implements Runnable {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        for (int i = 0; i < this.game.map.blocks.size(); i++) {
-            this.game.map.blocks.get(i).render(g);
-        }
+        g.drawImage(mapBufferedImage, null, 0, 0);
+
+//        for (int i = 0; i < this.game.map.blocks.size(); i++) {
+//            this.game.map.blocks.get(i).render(g);
+//        }
 
         for (int i = 0; i < this.game.map.entitys.size(); i++) {
             this.game.map.entitys.get(i).render(g);

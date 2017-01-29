@@ -6,27 +6,38 @@ import java.awt.*;
 /**
  * Created by Pascal on 12.12.2016.
  */
-public class Body {
+public abstract class Body {
     public Vector position;
     public Model model;
 
+    /**
+     * Constructor for Body, with model and position
+     * @param positon position of the block
+     * @param model model with texture and all that stuff
+     */
     Body(Vector positon, Model model) {
         this.position = positon;
         this.model = model;
     }
 
+    /**
+     * Render function
+     * @param ctx drawing onto that
+     */
     void render(Graphics2D ctx) {
         ctx.drawImage(this.model.texture, (int) Math.round(this.position.x), (int) Math.round(this.position.y), null);
     }
 
+
+    /**
+     * Checks collision between two entitys
+     * @param body other entity
+     * @param newPosition new position of this
+     * @return if collision occured
+     */
     public boolean checkCollision(Body body, Vector newPosition) {
         return model.checkCollision(body.position, newPosition, body.model);
     }
-
-//    public boolean checkCollision(Body a, Vector v) {
-//        return true;
-//        return this.model.checkCollision(body.position, newPosition, body.model);
-//    }
 
 
 

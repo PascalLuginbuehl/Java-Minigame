@@ -12,6 +12,9 @@ public class Game implements Runnable {
     public Map map;
     public HashMap<String, Model> models;
 
+    /**
+     * Base class for everything, creates map, models and other stuff
+     */
     public Game() {
         this.models = new HashMap<String, Model>();
 

@@ -8,12 +8,22 @@ public class Hitbox {
     protected ArrayList<Rectangle> rectangles;
     public Rectangle collisionBox;
 
-
+    /**
+     * array of recangles which build hitbox
+     * @param rectangles
+     */
     Hitbox(ArrayList<Rectangle> rectangles) {
         this.rectangles = rectangles;
         this.collisionBox = this.getCollisionBox();
     }
 
+    /**
+     * checks collision first with outer collsion box, after true with normal checkung
+     * @param origin own new position
+     * @param originHitbox others position
+     * @param hitbox hitbox of the orher
+     * @return returns if collision occured
+     */
     public boolean checkCollision(Vector origin, Vector originHitbox, Hitbox hitbox) {
         Rectangle collisionBox = new Rectangle(this.collisionBox.min.add(originHitbox), this.collisionBox.max);
         Rectangle collisionBox2 = new Rectangle(hitbox.collisionBox.min.add(origin), hitbox.collisionBox.max);
@@ -37,7 +47,10 @@ public class Hitbox {
         return false;
     }
 
-
+    /**
+     * Gets outer collision box so check collsion not always has to run
+     * @return new Rectangle around everything
+     */
     private Rectangle getCollisionBox() {
         Vector max = new Vector(0, 0);
 

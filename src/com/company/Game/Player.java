@@ -48,6 +48,10 @@ public class Player {
         });
     }
 
+    /**
+     * Gets direction of wasd and creates force vector
+     * @return Force vector
+     */
     private Vector getDirection()  {
         Vector v = new Vector(0, 0);
 

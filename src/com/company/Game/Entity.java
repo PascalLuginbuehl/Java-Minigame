@@ -12,6 +12,13 @@ public class Entity extends Body {
     private int spritePositon;
     public int lastDirection;
 
+    /**
+     * Entity with many parameters for movement
+     * @param position position in map
+     * @param model model of block (texture...)
+     * @param force force in which direction it moves
+     * @param velocity actual speed
+     */
     Entity(Vector position, Model model, Vector force, Vector velocity) {
         super(position, model);
 
