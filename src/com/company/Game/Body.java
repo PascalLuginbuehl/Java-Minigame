@@ -25,7 +25,14 @@ public abstract class Body {
      * @param ctx drawing onto that
      */
     void render(Graphics2D ctx) {
-        ctx.drawImage(this.model.texture, (int) Math.round(this.position.x), (int) Math.round(this.position.y), null);
+        ctx.drawImage(
+            this.model.texture,
+            (int) Math.round(this.position.x),
+            (int) Math.round(this.position.y),
+            (int) Math.round(this.model.textureSize.x),
+            (int) Math.round(this.model.textureSize.y),
+            null
+        );
     }
 
 
@@ -41,7 +48,7 @@ public abstract class Body {
 
 
 
-        public Vector[] getCollisionPosition(Vector newPosition, Vector newVelocity, Body collidedBody) {
+    public Vector[] getCollisionPosition(Vector newPosition, Vector newVelocity, Body collidedBody) {
         Vector returnPosition = new Vector(newPosition.x, newPosition.y);
             Vector returnVelocity = new Vector(newVelocity.x, newVelocity.y);
 

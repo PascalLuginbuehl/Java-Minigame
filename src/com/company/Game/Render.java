@@ -2,16 +2,14 @@ package com.company.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
+import java.awt.image.RescaleOp;
 
 /**
  * Created by Pascal on 12.12.2016.
  */
-public class Render implements Runnable {
+public class Render extends Component implements Runnable {
 
     private Game game;
     JFrame frame;
@@ -26,7 +24,7 @@ public class Render implements Runnable {
      * Initialization
      * @param game game as parameter so it has all informations
      */
-    public Render(Game game) {
+    public Render (Game game) {
         this.game = game;
 
         frame = new JFrame("Basic Game3");
@@ -53,28 +51,49 @@ public class Render implements Runnable {
         canvas.requestFocus();
 
 
-//        mapCanvas
-        mapBufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D mapGraphics = mapBufferedImage.createGraphics();
-
-        for (int i = 0; i < this.game.map.blocks.size(); i++) {
-            this.game.map.blocks.get(i).render(mapGraphics);
-        }
-
-
-
-        // load global background
-//        Image background = Toolkit.getDefaultToolkit().getImage("assets/images/grass.png");
-
+        MediaTracker m = new MediaTracker(this);
 
         // Loading images
+        int counter = 0;
         for(java.util.Map.Entry<String, Model> entry : this.game.models.entrySet()) {
             String modelName = entry.getKey();
             Model model = entry.getValue();
 
 
             model.texture = Toolkit.getDefaultToolkit().getImage(model.texturePath);
+            m.addImage( model.texture, counter);
+
+            counter++;
+        }
+
+        try {
+            m.waitForAll();
+        }
+        catch (InterruptedException e) {
+            System.out.println("Loading of the image was interrupted" );
+        }
+
+
+        if( m.statusAll(false) == MediaTracker.LOADING)
+            System.out.println("Still Loading - oops, we should never be here!");
+        if( m.statusAll(false) == MediaTracker.ABORTED)
+            System.out.println("Loading of image aborted");
+        if( m.statusAll(false) == MediaTracker.ERRORED)
+            System.out.println("Image was errored");
+        if( m.statusAll(false) == MediaTracker.COMPLETE)
+            System.out.println("Image load complete!");
+
+
+//      load global background
+//      Image background = Toolkit.getDefaultToolkit().getImage("assets/images/grass.png");
+
+//      mapCanvas
+        mapBufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D mapGraphics = mapBufferedImage.createGraphics();
+
+        for (int i = 0; i < this.game.map.blocks.size(); i++) {
+            this.game.map.blocks.get(i).render(mapGraphics);
         }
     }
 
@@ -129,9 +148,6 @@ public class Render implements Runnable {
 
         g.drawImage(mapBufferedImage, null, 0, 0);
 
-//        for (int i = 0; i < this.game.map.blocks.size(); i++) {
-//            this.game.map.blocks.get(i).render(g);
-//        }
 
         for (int i = 0; i < this.game.map.entitys.size(); i++) {
             this.game.map.entitys.get(i).render(g);

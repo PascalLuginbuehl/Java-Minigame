@@ -35,10 +35,10 @@ public class Game implements Runnable {
 
         this.models.put("player", new Model(
                 new Hitbox(a),
-                "dirt.png",
-                "dirt",
-                new Vector(10, 10),
-                1,
+                "player.png",
+                "player",
+                new Vector(24, 26),
+                10,
                 false
         ));
 
@@ -145,6 +145,8 @@ public class Game implements Runnable {
                 } else {
                     entity.velocity = entity.velocity.scale(.1);
                 }
+
+                entity.lastDirection = entity.getDirection();
             }
         }
     }

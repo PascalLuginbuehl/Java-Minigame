@@ -25,9 +25,7 @@ public class Map {
 
         entity.add(new Entity(
             new Vector(100, 100),
-            game.models.get("player"),
-            new Vector(0, 0),
-            new Vector(0, 0)
+            game.models.get("player")
         ));
 
         this.entitys = entity;

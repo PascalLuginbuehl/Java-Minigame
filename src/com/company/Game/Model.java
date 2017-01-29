@@ -11,6 +11,7 @@ public class Model {
     public String texturePath;
     public Image texture;
     public int spriteMax;
+    public int spriteHeight;
     public boolean hasPattern;
 
     Model(Hitbox hitbox, String texturePath, String name, Vector textureSize, int spriteMax, boolean hasPattern) {
@@ -19,7 +20,7 @@ public class Model {
         this.textureSize = textureSize;
         this.hasPattern = hasPattern;
 
-
+        this.spriteHeight = 4;
         this.spriteMax = spriteMax;
         this.texturePath = texturePath;
     }
