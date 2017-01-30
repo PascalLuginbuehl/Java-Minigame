@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 /**
- * Created by piran on 28.1.17.
+ * Created by Alexandre Maurer on 20.1.17.
  */
 public class Player {
     private Entity player;
@@ -29,7 +29,7 @@ public class Player {
             @Override
             public void keyPressed(KeyEvent e) {
                 char key = e.getKeyChar();
-                if (keys.containsKey(key))  {
+                if (keys.containsKey(key)) {
                     keys.replace(key, true);
                 }
 
@@ -39,7 +39,7 @@ public class Player {
             @Override
             public void keyReleased(KeyEvent e) {
                 char key = e.getKeyChar();
-                if (keys.containsKey(key))  {
+                if (keys.containsKey(key)) {
                     keys.replace(key, false);
                 }
 
@@ -50,13 +50,14 @@ public class Player {
 
     /**
      * Gets direction of wasd and creates force vector
+     *
      * @return Force vector
      */
-    private Vector getDirection()  {
+    private Vector getDirection() {
         Vector v = new Vector(0, 0);
 
         if (this.keys.get('w')) {
-            v.y-- ;
+            v.y--;
         }
 
         if (this.keys.get('a')) {
@@ -73,25 +74,4 @@ public class Player {
 
         return v;
     }
-
-
-//        window.addEventListener('keydown', (e) => {
-//        if (this.keys.hasOwnProperty(e.key)) {
-//            this.keys[e.key] = true;
-//
-//            this.input.setForce(index, this.getDirection(this.keys));
-//
-//            e.preventDefault();
-//        }
-//    });
-//
-//        window.addEventListener('keyup', (e) => {
-//        if (this.keys.hasOwnProperty(e.key)) {
-//            this.keys[e.key] = false;
-//
-//            this.input.setForce(index, this.getDirection(this.keys));
-//
-//            e.preventDefault();
-//        }
 }
-

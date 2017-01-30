@@ -7,15 +7,15 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
 /**
- * Created by Pascal on 12.12.2016.
+ * Created by Oliver Stalder on 12.12.2016.
  */
 public class Render extends Component implements Runnable {
 
     private Game game;
-    JFrame frame;
-    public Canvas canvas;
-    BufferStrategy bufferStrategy;
-    BufferedImage mapBufferedImage;
+    private JFrame frame;
+    private Canvas canvas;
+    private BufferStrategy bufferStrategy;
+    private BufferedImage mapBufferedImage;
     private Entity cameraEntity;
     final int HEIGHT = 1000;
     final int WIDTH = 1000;

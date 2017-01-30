@@ -19,6 +19,12 @@ public class Map {
             true
         ));
 
+        block.add(new Block(
+                new Vector(200, 200),
+                game.models.get("house"),
+                true
+        ));
+
         this.blocks = block;
 
         ArrayList<Entity> entity = new ArrayList<>();

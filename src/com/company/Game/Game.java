@@ -2,6 +2,7 @@ package com.company.Game;
 
 import com.sun.org.apache.regexp.internal.RE;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +31,24 @@ public class Game implements Runnable {
                 new Vector(24, 26)
         ));
 
+        ArrayList<Rectangle> houseHitbox = new ArrayList<>();
+        houseHitbox.add(new Rectangle(
+                new Vector(0, 0),
+                new Vector(190, 185)
+        ));
+        houseHitbox.add(new Rectangle(
+                new Vector(190, 30),
+                new Vector(64, 120)
+        ));
+        houseHitbox.add(new Rectangle(
+                new Vector(63, 185),
+                new Vector(15, 8)
+        ));
+        houseHitbox.add(new Rectangle(
+                new Vector(112, 185),
+                new Vector(15, 8)
+        ));
+
         this.models.put("dirt", new Model(
             new Hitbox(dirtHitbox),
             "dirt.png",
@@ -37,6 +56,15 @@ public class Game implements Runnable {
             new Vector(10, 10),
             1,
             false
+        ));
+
+        this.models.put("house", new Model(
+                new Hitbox(houseHitbox),
+                "house.png",
+                "house",
+                new Vector(254, 198),
+                1,
+                false
         ));
 
         this.models.put("player", new Model(
@@ -106,7 +134,7 @@ public class Game implements Runnable {
 
                 // new position (now check for collision)
                 Vector position = entity.position.add(entity.velocity.scale(delay));
-                ArrayList<Body> collision = new ArrayList<Body>();
+                ArrayList<Body> collision = new ArrayList<>();
                 for (int o = 0; o < this.map.blocks.size(); o++) {
                     Block block = this.map.blocks.get(o);
                     if (block != null) {

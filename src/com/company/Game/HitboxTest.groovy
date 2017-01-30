@@ -1,7 +1,7 @@
 package com.company.Game
 
 /**
- * Created by piran on 29.1.17.
+ * Created by Pascal on 20.1.17.
  */
 class HitboxTest extends GroovyTestCase {
     void testCheckCollision() {
