@@ -2,6 +2,7 @@ package com.company.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
@@ -54,8 +55,11 @@ public class Render extends Component implements Runnable {
 
         MediaTracker m = new MediaTracker(this);
 
+        Image background = Toolkit.getDefaultToolkit().getImage("dirt.png");
+        m.addImage( background, 0);
+
         // Loading images
-        int counter = 0;
+        int counter = 1;
         for(java.util.Map.Entry<String, Model> entry : this.game.models.entrySet()) {
             String modelName = entry.getKey();
             Model model = entry.getValue();
@@ -93,6 +97,8 @@ public class Render extends Component implements Runnable {
 
         Graphics2D mapGraphics = mapBufferedImage.createGraphics();
 
+//        mapGraphics.setPaint(new TexturePaint((BufferedImage) background, new java.awt.Rectangle(0, 0, 16, 16)));
+        mapGraphics.drawRect(0,0, WIDTH, HEIGHT);
         for (int i = 0; i < this.game.map.blocks.size(); i++) {
             this.game.map.blocks.get(i).render(mapGraphics);
         }
