@@ -11,7 +11,7 @@ public class Main {
         Game gameEx = new Game();
         new Thread(gameEx).start();
 
-        Render renderEx = new Render(gameEx);
+        Render renderEx = new Render(gameEx, gameEx.map.entitys.get(0));
         new Thread(renderEx).start();
 
         new Player(0, renderEx, gameEx);

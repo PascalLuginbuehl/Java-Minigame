@@ -13,7 +13,7 @@ public class Render extends Component implements Runnable {
 
     private Game game;
     private JFrame frame;
-    private Canvas canvas;
+    public Canvas canvas;
     private BufferStrategy bufferStrategy;
     private BufferedImage mapBufferedImage;
     private Entity cameraEntity;
@@ -24,8 +24,9 @@ public class Render extends Component implements Runnable {
      * Initialization
      * @param game game as parameter so it has all informations
      */
-    public Render (Game game) {
+    public Render (Game game, Entity cameraEntity) {
         this.game = game;
+        this.cameraEntity = cameraEntity;
 
         frame = new JFrame("Basic Game3");
 
@@ -145,6 +146,9 @@ public class Render extends Component implements Runnable {
     private void renderLoop() {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);
+
+
+        g.translate( cameraEntity.position.x * -1 + WIDTH / 2, cameraEntity.position.y * -1 + HEIGHT / 2);
 
         g.drawImage(mapBufferedImage, null, 0, 0);
 
